@@ -156,6 +156,9 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+-- for bufferline.nvim
+vim.opt.termguicolors = true
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -982,7 +985,7 @@ require('lazy').setup({
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
   -- require 'kickstart.plugins.debug',
-  -- require 'kickstart.plugins.indent_line',
+  require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
@@ -1019,6 +1022,29 @@ require('lazy').setup({
     },
   },
 })
+
+---------
+-- eigene settings
+---------
+
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+
+---------
+-- eigene keymaps
+---------
+
+-- Buffers
+vim.keymap.set('n', '<Tab>', ':bnext<CR>', opts)
+vim.keymap.set('n', '<S-Tab>', ':bprevious<CR>', opts)
+vim.keymap.set('n', '<leader>x', ':bdelete!<CR>', opts) -- close buffer
+vim.keymap.set('n', '<leader>b', '<cmd> enew <CR>', opts) -- new buffer
+
+-- Window management
+vim.keymap.set('n', '<leader>v', '<C-w>v', opts) -- split window vertically
+vim.keymap.set('n', '<leader>h', '<C-w>s', opts) -- split window horizontally
+vim.keymap.set('n', '<leader>se', '<C-w>=', opts) -- make split windows equal width & height
+vim.keymap.set('n', '<leader>xs', ':close<CR>', opts) -- close current split window
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

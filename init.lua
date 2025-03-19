@@ -1,5 +1,3 @@
-require('options')
-
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -11,6 +9,8 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   end
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
+
+require("options")
 
 -- [[ Configure and install plugins ]]
 --
@@ -84,6 +84,17 @@ require('lazy').setup({
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
           },
+        },
+        defaults = {
+            mappings = {
+              n = {
+                ['<c-d>'] = require('telescope.actions').delete_buffer,
+                ['d'] = require('telescope.actions').delete_buffer
+              },
+              i = {
+                ['<c-d>'] = require('telescope.actions').delete_buffer
+              }
+            }
         },
       }
 
